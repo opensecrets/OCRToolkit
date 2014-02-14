@@ -8,6 +8,9 @@ Tools for working with Optical Character Recognition output
 
 
 
+![Sample document](http://assets.opensecrets.org/github/sample_doc.png "Sample PDF: Periodic Financial Disclosure from the US House of Representatives")
+
+
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
@@ -80,6 +83,9 @@ for i, loc in enumerate(xLocs):
 # Print out the data from our example doc.
 print [x for x in allData if x[0] == '2000777.xml']
 ```
+
+
+![Histogram of X marks](http://assets.opensecrets.org/github/x_mark_hist.png "Histogram of X marks")
 
 
 
