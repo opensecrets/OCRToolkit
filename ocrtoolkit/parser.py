@@ -35,48 +35,6 @@ def getCharacters(fname, bb):
     return charsInside
 
 
-'''
-def parseXML(fname, regex, minLineLen=200, lineSeparator='|', returnLocations=False):
-    regExC = re.compile(regex,  re.IGNORECASE)
-
-    f = open(fname, 'r')
-    root = etree.XML(f.read())
-    matches = []
-    lefts = []
-    line = ''
-
-    for p in root.iter(PAGE):
-        for b in p.iter(BLOCK):
-
-            lastLeft = -1
-            for l in b.iter(LINE):
-                for c in l.iter(CHAR):
-                    left = int(c.attrib['l'])
-
-                    if left + minLineLen < lastLeft:
-                        match = regExC.match(line)
-                        if match is not None:
-                            # Array of leftmost locations for each match
-                            leftMosts = [lefts[match.start(i+1)] for i, m in enumerate(match.groups())]
-                            if returnLocations:
-                                matches.append(leftMosts + list(match.groups()))
-                            else:
-                                matches.append(list(match.groups()))
-
-                        lefts = []
-                        line = ''
-
-                    lastLeft = left
-
-                    lefts.append(left)
-                    line += c.text
-
-                lefts.append(-1)
-                line += lineSeparator
-
-        return matches
-
-'''
 def parseXML(fname, regex, minLineLen=200, lineSeparator='|'):
     regExC = re.compile(regex,  re.IGNORECASE)
 
@@ -115,6 +73,5 @@ def parseXML(fname, regex, minLineLen=200, lineSeparator='|'):
                 line += lineSeparator
 
     return (locs, matches)
-
 
 
