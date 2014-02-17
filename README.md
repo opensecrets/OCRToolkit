@@ -3,10 +3,15 @@ OCRToolkit
 
 Tools for working with Optical Character Recognition output
 
+### Installation
 
     pip install git+git://github.com/opensecrets/OCRToolkit.git
 
 
+### Example
+
+
+#### Sample PDF Document
 
 ![Sample document](http://assets.opensecrets.org/github/sample_doc.png "Sample PDF: Periodic Financial Disclosure from the US House of Representatives")
 
