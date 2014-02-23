@@ -95,7 +95,7 @@ print [x for x in allData if x[0] == '2000777.xml']
 
 
 
-#### [Well Known Text](http://en.wikipedia.org/wiki/Well-known_text) Conversion
+### Well-Known Text Conversion
 
 Parse as normal, returning all coordinates.  This will return a bounding box for the each line with a match.  (Regex ```.*``` will return the whole document.)
 
@@ -104,6 +104,7 @@ Parse as normal, returning all coordinates.  This will return a bounding box for
 pprint([parser.toWellKnownText(x) for x in locs])
 ```
 
+Output [WKT](http://en.wikipedia.org/wiki/Well-known_text):
 ```
 ['POLYGON ((106 78, 106 1518, 156 1518, 156 78))',
  'POLYGON ((215 1611, 215 1979, 241 1979, 241 1611))',
