@@ -95,3 +95,29 @@ print [x for x in allData if x[0] == '2000777.xml']
 
 
 
+#### [Well Known Text](http://en.wikipedia.org/wiki/Well-known_text) Conversion
+
+Parse as normal, returning all coordinates.  This will return a bounding box for the each line with a match.  (Regex ```.*``` will return the whole document.)
+
+```python
+(locs, data) = parser.parseXML('someXML.xom', regex, allCoords=True)
+pprint([parser.toWellKnownText(x) for x in locs])
+```
+
+```
+['POLYGON ((106 78, 106 1518, 156 1518, 156 78))',
+ 'POLYGON ((215 1611, 215 1979, 241 1979, 241 1611))',
+ 'POLYGON ((270 1630, 270 2062, 312 2062, 312 1630))',
+ 'POLYGON ((249 77, 249 1215, 308 1215, 308 77))',
+ 'POLYGON ((391 122, 391 173, 411 173, 411 122))',
+ 'POLYGON ((412 230, 412 1066, 443 1066, 443 230))',
+ 'POLYGON ((435 1568, 435 2029, 465 2029, 465 1568))',
+ 'POLYGON ((470 1568, 470 1731, 496 1731, 496 1568))',
+ .
+ .
+ .
+ 
+```
+
+
+
