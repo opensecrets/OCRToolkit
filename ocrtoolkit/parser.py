@@ -1,6 +1,7 @@
 import re
 from lxml import etree
 import os
+import xmltodict
 
 schema = '{http://www.abbyy.com/FineReader_xml/FineReader10-schema-v1.xml}'
 
@@ -9,6 +10,8 @@ BLOCK = schema + 'block'
 LINE = schema + 'line'
 CHAR = schema + 'charParams'
 
+def toWellKnownText(coords):
+    return 'POLYGON ((%s %s, %s %s, %s %s, %s %s))' % tuple([item for sublist in coords for item in sublist])
 
 def inside(bb, a):
 
@@ -23,6 +26,7 @@ def getCharacters(fname, bb):
 
     f = open(fname, 'r')
     root = etree.XML(f.read())
+    return xmltodict.parse(f.read())
 
     for p in root.iter(PAGE):
         for c in p.iter(CHAR):
@@ -34,8 +38,7 @@ def getCharacters(fname, bb):
         charsInside += '\n'
     return charsInside
 
-
-def parseXML(fname, regex, minLineLen=200, lineSeparator='|'):
+def parseXML(fname, regex, minLineLen=200, lineSeparator='|', allCoords=False):
     regExC = re.compile(regex,  re.IGNORECASE)
 
     f = open(fname, 'r')
@@ -44,7 +47,7 @@ def parseXML(fname, regex, minLineLen=200, lineSeparator='|'):
     lefts = []
     locs  = []
     line = ''
-
+        
     for p in root.iter(PAGE):
         for b in p.iter(BLOCK):
 
@@ -59,7 +62,11 @@ def parseXML(fname, regex, minLineLen=200, lineSeparator='|'):
                             matches.append(list(match.groups()))
                             # Array of leftmost locations for each match
                             leftMosts = [lefts[match.start(i+1)] for i, m in enumerate(match.groups())]
-                            locs.append(leftMosts)
+                            if allCoords:
+                                locs.append([(l.attrib['t'], l.attrib['l']), (l.attrib['t'], l.attrib['r']), 
+                                             (l.attrib['b'], l.attrib['r']), (l.attrib['b'], l.attrib['l'])])   
+                            else:
+                                locs.append(leftMosts)
 
                         lefts = []
                         line = ''
@@ -73,5 +80,4 @@ def parseXML(fname, regex, minLineLen=200, lineSeparator='|'):
                 line += lineSeparator
 
     return (locs, matches)
-
 
