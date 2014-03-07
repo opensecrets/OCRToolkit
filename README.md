@@ -97,10 +97,10 @@ print [x for x in allData if x[0] == '2000777.xml']
 
 ### Well-Known Text Conversion
 
-Parse as normal, returning all coordinates.  This will return a bounding box for the each line with a match.  (Regex ```.*``` will return the whole document.)
+Parse as normal, returning all coordinates.  This will return a bounding box for the each line with a match.  (Regex ```([^\n])*``` will return the whole document.)
 
 ```python
-(locs, data) = parser.parseXML('someXML.xom', regex, allCoords=True)
+(locs, data) = parser.parseXML('someXML.xml', regex, allCoords=True)
 pprint([parser.toWellKnownText(x) for x in locs])
 ```
 
